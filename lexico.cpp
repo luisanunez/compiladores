@@ -1,10 +1,11 @@
-//g++ -std=c++11 automatas.cpp -o main
+//  g++ -std=c++11 lexico.cpp -o lexico
+
 
 #include <iostream>
 #include <cstdlib>
 #include <cctype>
 #include <vector>
-
+#include <fstream>
 using namespace std;
 
 
@@ -166,10 +167,10 @@ Estado_variable reconocerVariable(const string& inputString){
 
 
 
-void verificar(){
-    string token;
-    string inputString;
-    cin >> inputString;
+void verificar(string inputString){
+   string token;
+ /*   string inputString;
+    cin >> inputString;*/
    
     add_reservadas();
     Estado_variable ultimo_variable = reconocerVariable(inputString);
@@ -291,12 +292,12 @@ void verificar(){
 
 
 
-     for(int i =0 ; i< lista_tokens.size();i++){
+/*     for(int i =0 ; i< lista_tokens.size();i++){
         cout<< lista_tokens[i]<<" - ";
      }   
+*/
 
-
-     cout<<endl;
+     //cout<<endl;
 
 }
 
@@ -305,10 +306,27 @@ void verificar(){
 
 int main() {
 
-    for(int i=0; i<5;i++){
-    verificar();
-}
-   
+
+  char cadena[128];
+    ifstream fe("codigo_ejemplo.txt");
+    ofstream fs("tokens.txt"); 
+
+   while(!fe.eof()) {
+      fe >> cadena;
+     // cout << cadena << endl;
+      verificar(cadena);
+   }
+   fe.close();
+
+  for(int i =0 ; i< lista_tokens.size();i++){
+        cout<< lista_tokens[i]<<" - ";
+        fs << lista_tokens[i] << endl;
+
+ 
+     }
+
+
+fs.close();
 
     return 0;
 }
